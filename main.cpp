@@ -1,106 +1,91 @@
-//#include "LinkList.h"
-#include "LinkList.cpp"
-//#include "Nodenode.h"
-#include "Nodenode.cpp"
 #include <iostream>
+#include "matrix.h"
+#include <vector>
+
 using namespace std;
 
-    int main()
+int main() {
+  matrix m1(1,1);
 
-    {
+  cout<<"m1 is:\n" << m1;
 
-        LinkedList lk1;
+  int** arr = new int* [3];
 
-        LinkedList lk2;
+  for (int i = 0; i < 3; i++)
+    arr[i] = new int[2];
+  for (int i = 0; i < 3; i++)
+    for (int j = 0; j < 2; j++)
+      arr[i][j] = 2 * i + j+1;
 
-        LinkedList lk3;
+  matrix m2(arr, 3, 2);
 
-        LinkedList lk4;
+  cout << "m2 is:\n" << m2;
 
-        LinkedList lk5;
+  vector<vector<int>> vec = { {1,2,3} ,{4,5,6} };
 
-        LinkedList lk6;
+  matrix m3(vec);
 
-        LinkedList lk7;
+  cout << "m3 is:\n" << m3;
 
-        lk2 = lk1 + 10;
+  matrix m4 = m2;
 
-        lk3 = lk2 + 20;
+  cout << "after constructing m4 of m2, m4 is:\n" <<
+m4;
 
-        lk4 = 0 + lk3;
+  cout << "m2[2][1] is: " << m2.get_elem(2, 1)<<endl;
 
-        lk5 = -20 + lk4 + -10;
+  cout << "3th row of m2 is: " << m2.get_row(2)[0]<<" " << m2.get_row(2)[1] << endl;
 
-        lk6 = lk5 + lk4;
+  cout << "2nd column of m2 is: " << m2.get_column(1)
+[0] << " " << m2.get_column(1)[1] <<"" <<m2.get_column(1)[2] << endl;
 
-        cout << "lk5: " << lk5 << " lk6: " << lk6 << endl;
+  vector<int> v = { 7,8,9 };
 
-        // output:
+  m2.set_column(v, 1);
 
-        // lk5: -20 0 10 20 -10 lk6: -20 0 10 20 -10 0 10 20
+  cout << "m2 is:\n" << m2;
 
-        lk7 = lk3 = lk4;
+  cout << "but m4(copy of m2) is still:\n" << m4 <<
+endl;
 
-        cout << ++lk3 << " --- " << lk7++ << endl;
+  m1 =m1=m2= m3;
 
-        // output:
+  cout << "after m1=m1=m2=m3 m2 is:\n" << m2;
 
-        // 1 11 21 --- 0 10 20
+  cout << "m4(2,1) is: " << m4(2, 1) << endl
+   << "m4[2] [1] is: " << m4[2][1]<<endl;//emtiazi booda!
 
-        if (lk7 == lk3)
+  cout << "m1 is" << (m1 == m2 ? " " : " not ") <<
+"equal to m2 " << "and m2 is" << (m2 != m4 ? " not " : " ") << "equal to m4."<<endl;
 
-        {
+  cout << "(3*m1)/2*4 is:\n" << (3 * m1) / 2 * 4;
+  //note: integer divide
 
-            lk7[1] = 22;
+  m1 *= 2;
 
-            lk3[1] = lk7[1];
+  cout << "after m1*=2 m1 is:\n" << m1;
 
-            cout << lk3[1]-- << " --- " << --lk7[1] << endl;
+  cout << "m1+m2 is:\n" << m1 + m2;
 
-            // output:
+  cout << "m2*m4 is:\n" << m2 * m4;
 
-            // 22 --- 21
+  m2 *= m4*=m1;
 
-            const LinkedList lk8(lk4);
+  cout << "after m2*=m4*=m1 m2 is:\n" << m2;
 
-            lk4++;
+  matrix m5(arr, 3, 2);
 
-            // lk8[1]=lk4[1];//error
+  m4 = m5;
 
-            cout << lk4[1] << " --- " << lk8[1] << endl;
+  cout << "m4++*2 is:\n"<<m4++ * 2 << "and ++m5*2 is:\n" << ++m5*2;
 
-            // output
+  cout << "now m5 and m4 are equal to:\n" << m5;
 
-            // 11 --- 10
+  cout << "getting input matrix and assign it to m5 with format(row column a1 a2 ... an):\n";
 
-            cout << lk8[999] << " --- " << lk4[-1] << endl;
+  cin >> m5;
 
-            // output
+  cout << "you entered matrix:\n" << m5;
 
-            // not in range !
-
-            // 0 --- not in range !
-
-            // 1
-
-        }
-
-        ++ ++lk2;
-
-        cout << lk2[0] << endl;
-
-        // ouput
-
-        // 12
-
-        lk2++ ++;
-
-        cout << lk2[0] << endl;
-
-        // ouput
-
-        // 13
-
-        return 0;
-
-    }
+  return 0;
+}
